@@ -1,0 +1,54 @@
+{
+  "areas": [
+    {
+      "name": "Canggu",
+      "description": "Surf, digital nomads, vibrant nightlife",
+      "vibe": ["surf", "nightlife", "digital nomad", "trendy"],
+      "price_range": "$150k - $300k",
+      "rental_yield": "10-15%",
+      "best_for": ["Young professionals", "Investors", "Digital nomads"],
+      "pros": ["High rental demand", "Beach access", "Restaurants & cafes"],
+      "cons": ["Traffic", "Crowded", "Expensive"]
+    },
+    {
+      "name": "Ubud",
+      "description": "Nature, yoga, arts, spiritual",
+      "vibe": ["nature", "yoga", "quiet", "spiritual", "art"],
+      "price_range": "$100k - $200k",
+      "rental_yield": "8-12%",
+      "best_for": ["Wellness seekers", "Artists", "Retirees"],
+      "pros": ["Beautiful nature", "Lower prices", "Peaceful"],
+      "cons": ["No beach", "Humidity", "Limited nightlife"]
+    },
+    {
+      "name": "Seminyak",
+      "description": "Luxury, shopping, fine dining",
+      "vibe": ["luxury", "shopping", "restaurants", "beach"],
+      "price_range": "$200k - $400k",
+      "rental_yield": "8-10%",
+      "best_for": ["High-end investors", "Luxury travelers"],
+      "pros": ["Beach clubs", "High-end amenities", "Established"],
+      "cons": ["Very expensive", "Crowded", "Tourist heavy"]
+    },
+    {
+      "name": "Sanur",
+      "description": "Family-friendly, quiet, established expat community",
+      "vibe": ["family", "quiet", "established", "safe"],
+      "price_range": "$120k - $250k",
+      "rental_yield": "6-8%",
+      "best_for": ["Families", "Retirees", "Long-term expats"],
+      "pros": ["Safe", "Good schools nearby", "Calm beach"],
+      "cons": ["Less trendy", "Older crowd", "Fewer restaurants"]
+    },
+    {
+      "name": "Uluwatu",
+      "description": "Cliff views, surf, dramatic scenery",
+      "vibe": ["surf", "views", "nature", "exclusive"],
+      "price_range": "$180k - $350k",
+      "rental_yield": "8-12%",
+      "best_for": ["Surfers", "View seekers", "Privacy lovers"],
+      "pros": ["Amazing views", "Less crowded", "Good surf"],
+      "cons": ["Remote", "Limited amenities", "Steep cliffs"]
+    }
+  ]
+}

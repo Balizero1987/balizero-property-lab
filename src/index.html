@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bali Zero Property Lab</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'bz-blue': '#1e3a5f',
+                        'bz-gold': '#c9a961',
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-gray-50">
+    <!-- Header -->
+    <header class="bg-bz-blue text-white py-6">
+        <div class="container mx-auto px-4">
+            <h1 class="text-3xl font-bold">Bali Zero Property Lab</h1>
+            <p class="text-bz-gold mt-2">Tools & Prototypes for Real Estate</p>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 py-8">
+        <h2 class="text-2xl font-bold text-bz-blue mb-6">Available Tools</h2>
+
+        <div class="grid md:grid-cols-2 gap-6">
+            <!-- ROI Calculator Card -->
+            <div class="bg-white rounded-lg shadow-lg p-6 border-l-4 border-bz-gold">
+                <h3 class="text-xl font-bold text-bz-blue mb-2">🧮 ROI Calculator</h3>
+                <p class="text-gray-600 mb-4">Calculate your return on investment for Bali property</p>
+                <a href="calculator.html" class="inline-block bg-bz-blue text-white px-4 py-2 rounded hover:bg-opacity-90">
+                    Coming Soon
+                </a>
+            </div>
+
+            <!-- Area Quiz Card -->
+            <div class="bg-white rounded-lg shadow-lg p-6 border-l-4 border-bz-gold">
+                <h3 class="text-xl font-bold text-bz-blue mb-2">🗺️ Area Matcher Quiz</h3>
+                <p class="text-gray-600 mb-4">Find your perfect Bali neighborhood</p>
+                <a href="quiz.html" class="inline-block bg-bz-blue text-white px-4 py-2 rounded hover:bg-opacity-90">
+                    Coming Soon
+                </a>
+            </div>
+
+            <!-- Property Options Card -->
+            <div class="bg-white rounded-lg shadow-lg p-6 border-l-4 border-bz-gold">
+                <h3 class="text-xl font-bold text-bz-blue mb-2">📊 Ownership Options</h3>
+                <p class="text-gray-600 mb-4">Understand how foreigners can buy property</p>
+                <a href="options.html" class="inline-block bg-bz-blue text-white px-4 py-2 rounded hover:bg-opacity-90">
+                    Coming Soon
+                </a>
+            </div>
+
+            <!-- Investment Simulator Card -->
+            <div class="bg-white rounded-lg shadow-lg p-6 border-l-4 border-bz-gold">
+                <h3 class="text-xl font-bold text-bz-blue mb-2">💰 Investment Simulator</h3>
+                <p class="text-gray-600 mb-4">Simulate your investment over 5-10 years</p>
+                <a href="simulator.html" class="inline-block bg-bz-blue text-white px-4 py-2 rounded hover:bg-opacity-90">
+                    Coming Soon
+                </a>
+            </div>
+        </div>
+
+        <!-- Instructions -->
+        <div class="mt-12 bg-blue-50 border border-blue-200 rounded-lg p-6">
+            <h3 class="text-lg font-bold text-bz-blue mb-2">👋 Ciao Krisna!</h3>
+            <p class="text-gray-700">
+                Questo è il tuo punto di partenza. Chiedi a Claude Code di creare uno dei tools sopra!
+            </p>
+            <p class="text-gray-700 mt-2">
+                Esempio: <code class="bg-gray-200 px-2 py-1 rounded">"Crea il ROI Calculator"</code>
+            </p>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-bz-blue text-white py-4 mt-8">
+        <div class="container mx-auto px-4 text-center">
+            <p>Bali Zero Property Lab - Prototype by Krisna</p>
+        </div>
+    </footer>
+</body>
+</html>
