@@ -1,85 +1,92 @@
-# Bali Zero Property Lab
+# Hai Krisna! 👋
 
-## Ciao Krisna!
+Repo ini adalah **Property Lab** - membuat tools dan prototype untuk section **Real Estate** di balizero.com.
 
-Questo repo è il tuo spazio per creare tools e prototipi per la sezione **Real Estate** di balizero.com.
+Karena kamu expert di bidang properti Bali, kamu punya advantage besar! Kamu tahu apa yang client butuhkan.
 
-## Obiettivo
+## Tujuan
 
-Creare strumenti interattivi che aiutano gli stranieri a capire il mercato immobiliare di Bali:
-- Come possono comprare casa/terreno legalmente
-- Quali zone sono migliori per investimento
-- Calcolare ROI e rental yield
-- Confrontare le opzioni (leasehold vs freehold vs PT PMA)
+Membuat **tools interaktif** yang membantu orang asing memahami pasar properti Bali:
+- Bagaimana cara beli properti secara legal
+- Area mana yang cocok untuk mereka
+- Hitung ROI dan rental yield
+- Compare opsi kepemilikan
 
-## Idee per tools
+## Ide Tools
 
 ### 1. 🧮 ROI Calculator
-Calcola il ritorno sull'investimento:
-- Prezzo acquisto
-- Costi ristrutturazione
-- Affitto mensile stimato
-- Spese (maintenance, tasse, etc)
-- → Mostra: Yield %, Break-even years
+Kalkulator untuk investor properti:
+- Input: harga beli, renovasi, sewa bulanan
+- Output: ROI %, break-even years, cashflow
 
 ### 2. 🗺️ Area Matcher Quiz
-Quiz interattivo: "Quale zona di Bali fa per te?"
-- Budget
-- Lifestyle (surf, yoga, nightlife, quiet)
-- Scopo (investment, living, holiday home)
-- → Suggerisce: Canggu / Ubud / Seminyak / Sanur / Uluwatu
+Quiz interaktif: "Area mana di Bali yang cocok untuk kamu?"
+- Pertanyaan tentang budget, lifestyle, tujuan
+- Hasil: rekomendasi area + penjelasan
 
-### 3. 📊 Property Options Explainer
-Flowchart interattivo su come stranieri possono comprare:
+### 3. 📊 Ownership Options Explainer
+Visual guide tentang cara beli properti:
 - Hak Pakai (leasehold)
 - PT PMA (company ownership)
-- Nominee (rischi!)
-- → Pros/cons di ogni opzione
+- Nominee (dan risikonya!)
 
 ### 4. 💰 Investment Simulator
-Simula 5-10 anni di investimento:
-- Appreciation % annuo
-- Rental income
-- Inflazione
-- → Grafico valore nel tempo
+Simulasi investasi 5-10 tahun dengan grafik
 
-## Come iniziare
+## Cara Mulai
 
-1. Apri Claude Code in questo folder
-2. Scegli un tool da creare
-3. Chiedi: *"Crea un [tool] per [scopo]"*
+```bash
+# Clone repo ini
+git clone https://github.com/Balizero1987/balizero-property-lab.git
+cd balizero-property-lab
 
-## Struttura suggerita
+# Mulai Claude Code
+claude
 
-```
-src/
-├── calculator.html     # ROI Calculator
-├── quiz.html          # Area Matcher
-├── explainer.html     # Property Options
-└── simulator.html     # Investment Simulator
-data/
-├── areas.json         # Dati zone Bali
-├── prices.json        # Prezzi medi per zona
-└── legal-options.json # Opzioni acquisto
-public/
-└── images/            # Immagini zone
+# Coba bilang:
+"Buatkan kalkulator ROI untuk investasi properti Bali"
 ```
 
-## Dati utili
+## Struktur Project
 
-Prezzi medi per zona (2024-2025):
-- Canggu: $150-300k (villa)
-- Ubud: $100-200k (villa)
-- Seminyak: $200-400k (villa)
-- Sanur: $120-250k (villa)
+```
+balizero-property-lab/
+├── README.md        # File ini
+├── CLAUDE.md        # Instruksi untuk AI
+├── src/
+│   └── index.html   # Landing page
+└── data/
+    └── areas.json   # Data area Bali
+```
 
-Rental yield medio: 8-12% lordo
+## Data Properti Bali
 
-## Domande per Claude Code
+### Harga Rata-Rata per Area (2024-2025)
 
-- "Crea un calcolatore ROI per investimenti immobiliari a Bali"
-- "Crea un quiz interattivo che suggerisce la zona di Bali ideale"
-- "Crea un flowchart interattivo sulle opzioni di acquisto per stranieri"
-- "Crea un simulatore di investimento con grafici"
+| Area | Villa 2BR | Villa 3BR |
+|------|-----------|-----------|
+| Canggu | $150-250k | $250-400k |
+| Ubud | $100-180k | $180-300k |
+| Seminyak | $200-350k | $350-500k |
+| Sanur | $120-200k | $200-350k |
 
-Divertiti! 🏠🚀
+### Rental Yield per Area
+
+| Area | Short-term | Long-term |
+|------|------------|-----------|
+| Canggu | 12-18% | 8-10% |
+| Ubud | 10-15% | 6-8% |
+| Seminyak | 10-14% | 7-9% |
+
+## Tips untuk Krisna
+
+Gunakan knowledge kamu!
+- Client dengan budget $200k biasanya tertarik apa?
+- Area mana paling populer untuk tipe client tertentu?
+- Pertanyaan paling sering dari client?
+
+**Build tools yang menjawab pertanyaan itu!**
+
+---
+
+**Semangat Krisna! Dengan knowledge properti kamu + Claude Code = tools yang genuinely useful! 🏠🚀**
