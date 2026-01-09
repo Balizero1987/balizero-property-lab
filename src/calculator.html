@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kalkulator ROI Properti Bali - BaliZero Property Lab</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'bz-blue': '#1e3a5f',
+                        'bz-gold': '#c9a961',
+                    },
+                    fontFamily: {
+                        'inter': ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+
+        /* Custom styling untuk input number */
+        input[type="number"]::-webkit-inner-spin-button,
+        input[type="number"]::-webkit-outer-spin-button {
+            opacity: 1;
+        }
+
+        /* Animasi untuk results section */
+        .fade-in {
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+
+    <!-- Header -->
+    <header class="bg-bz-blue text-white py-6 shadow-lg">
+        <div class="container mx-auto px-4 max-w-6xl">
+            <div class="flex items-center justify-between">
+                <div>
+                    <h1 class="text-2xl md:text-3xl font-bold">🧮 Kalkulator ROI Properti Bali</h1>
+                    <p class="text-gray-300 mt-1 text-sm md:text-base">Hitung Return on Investment properti impian Anda</p>
+                </div>
+                <a href="index.html" class="text-bz-gold hover:text-white transition-colors text-sm md:text-base">
+                    ← Kembali
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 py-8 max-w-6xl">
+
+        <!-- Info Banner -->
+        <div class="bg-blue-50 border-l-4 border-bz-blue p-4 mb-8 rounded-r">
+            <div class="flex items-start">
+                <svg class="w-6 h-6 text-bz-blue mr-3 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                </svg>
+                <div>
+                    <p class="text-sm text-gray-700">
+                        <strong>Catatan:</strong> Kalkulator ini menggunakan data pasar riil dari Bali.
+                        Hasil perhitungan adalah estimasi dan dapat bervariasi tergantung kondisi properti, lokasi spesifik, dan kondisi pasar.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-8">
+
+            <!-- Form Input (Kiri) -->
+            <div class="bg-white rounded-lg shadow-md p-6">
+                <h2 class="text-xl font-bold text-bz-blue mb-6">Data Properti & Investasi</h2>
+
+                <form id="roiForm" class="space-y-6">
+
+                    <!-- Harga Properti -->
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">
+                            Harga Properti (USD)
+                        </label>
+                        <div class="relative">
+                            <span class="absolute left-3 top-3 text-gray-500">$</span>
+                            <input type="number" id="propertyPrice"
+                                   class="w-full pl-8 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-bz-blue focus:border-transparent"
+                                   placeholder="200000" min="0" step="1000" required>
+                        </div>
+                    </div>
+
+                    <!-- Area -->
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">
+                            Area Lokasi
+                        </label>
+                        <select id="areaSelect"
+                                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-bz-blue focus:border-transparent"
+                                required>
+                            <option value="">Pilih Area...</option>
+                        </select>
+                        <p id="areaInfo" class="mt-2 text-xs text-gray-600 italic"></p>
+                    </div>
+
+                    <!-- Tipe Rental -->
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">
+                            Strategi Rental
+                        </label>
+                        <div class="grid grid-cols-2 gap-3">
+                            <label class="flex items-center p-3 border-2 border-gray-300 rounded-lg cursor-pointer hover:border-bz-blue transition-colors">
+                                <input type="radio" name="rentalType" value="short-term" checked
+                                       class="w-4 h-4 text-bz-blue">
+                                <span class="ml-2 text-sm">
+                                    <div class="font-semibold">Short-Term</div>
+                                    <div class="text-xs text-gray-600">Villa rental harian</div>
+                                </span>
+                            </label>
+                            <label class="flex items-center p-3 border-2 border-gray-300 rounded-lg cursor-pointer hover:border-bz-blue transition-colors">
+                                <input type="radio" name="rentalType" value="long-term"
+                                       class="w-4 h-4 text-bz-blue">
+                                <span class="ml-2 text-sm">
+                                    <div class="font-semibold">Long-Term</div>
+                                    <div class="text-xs text-gray-600">Sewa bulanan/tahunan</div>
+                                </span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Biaya Awal -->
+                    <div class="border-t pt-4">
+                        <h3 class="font-semibold text-gray-700 mb-3 text-sm">Biaya Awal Tambahan</h3>
+
+                        <div class="space-y-3">
+                            <div>
+                                <label class="block text-xs text-gray-600 mb-1">Renovasi & Furniture (USD)</label>
+                                <div class="relative">
+                                    <span class="absolute left-3 top-2 text-gray-500 text-sm">$</span>
+                                    <input type="number" id="renovation"
+                                           class="w-full pl-8 pr-4 py-2 border border-gray-300 rounded text-sm focus:ring-2 focus:ring-bz-blue focus:border-transparent"
+                                           placeholder="20000" min="0" step="1000" value="0">
+                                </div>
+                            </div>
+
+                            <div>
+                                <label class="block text-xs text-gray-600 mb-1">Biaya Legal & Notaris (USD)</label>
+                                <div class="relative">
+                                    <span class="absolute left-3 top-2 text-gray-500 text-sm">$</span>
+                                    <input type="number" id="legalFees"
+                                           class="w-full pl-8 pr-4 py-2 border border-gray-300 rounded text-sm focus:ring-2 focus:ring-bz-blue focus:border-transparent"
+                                           placeholder="5000" min="0" step="100" value="0">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Biaya Operasional Tahunan -->
+                    <div class="border-t pt-4">
+                        <h3 class="font-semibold text-gray-700 mb-3 text-sm">Biaya Operasional Tahunan</h3>
+
+                        <div class="space-y-3">
+                            <div>
+                                <label class="block text-xs text-gray-600 mb-1">Property Management (% dari income)</label>
+                                <div class="relative">
+                                    <input type="number" id="managementFee"
+                                           class="w-full px-4 py-2 border border-gray-300 rounded text-sm focus:ring-2 focus:ring-bz-blue focus:border-transparent"
+                                           placeholder="20" min="0" max="100" step="1" value="20">
+                                    <span class="absolute right-3 top-2 text-gray-500 text-sm">%</span>
+                                </div>
+                            </div>
+
+                            <div>
+                                <label class="block text-xs text-gray-600 mb-1">Maintenance & Utilities (USD/tahun)</label>
+                                <div class="relative">
+                                    <span class="absolute left-3 top-2 text-gray-500 text-sm">$</span>
+                                    <input type="number" id="maintenance"
+                                           class="w-full pl-8 pr-4 py-2 border border-gray-300 rounded text-sm focus:ring-2 focus:ring-bz-blue focus:border-transparent"
+                                           placeholder="3000" min="0" step="100" value="3000">
+                                </div>
+                            </div>
+
+                            <div>
+                                <label class="block text-xs text-gray-600 mb-1">Pajak Properti (USD/tahun)</label>
+                                <div class="relative">
+                                    <span class="absolute left-3 top-2 text-gray-500 text-sm">$</span>
+                                    <input type="number" id="propertyTax"
+                                           class="w-full pl-8 pr-4 py-2 border border-gray-300 rounded text-sm focus:ring-2 focus:ring-bz-blue focus:border-transparent"
+                                           placeholder="500" min="0" step="100" value="500">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tombol Hitung -->
+                    <button type="submit"
+                            class="w-full bg-bz-blue text-white py-3 rounded-lg font-semibold hover:bg-opacity-90 transition-all shadow-md hover:shadow-lg">
+                        📊 Hitung ROI
+                    </button>
+
+                </form>
+            </div>
+
+            <!-- Results (Kanan) -->
+            <div>
+                <!-- Hasil Kalkulasi -->
+                <div id="resultsSection" class="hidden">
+                    <div class="bg-white rounded-lg shadow-md p-6 mb-6">
+                        <h2 class="text-xl font-bold text-bz-blue mb-6">Hasil Perhitungan ROI</h2>
+
+                        <!-- Metrik Utama -->
+                        <div class="grid grid-cols-2 gap-4 mb-6">
+                            <div class="bg-gradient-to-br from-bz-blue to-blue-700 text-white p-4 rounded-lg">
+                                <div class="text-xs opacity-90 mb-1">ROI Tahunan</div>
+                                <div id="roiPercent" class="text-2xl font-bold">-</div>
+                            </div>
+
+                            <div class="bg-gradient-to-br from-bz-gold to-yellow-600 text-white p-4 rounded-lg">
+                                <div class="text-xs opacity-90 mb-1">Break-Even</div>
+                                <div id="breakEven" class="text-2xl font-bold">-</div>
+                            </div>
+                        </div>
+
+                        <!-- Detail Keuangan -->
+                        <div class="space-y-3 border-t pt-4">
+                            <div class="flex justify-between items-center">
+                                <span class="text-sm text-gray-600">Total Investasi Awal</span>
+                                <span id="totalInvestment" class="font-semibold text-gray-800">-</span>
+                            </div>
+
+                            <div class="flex justify-between items-center">
+                                <span class="text-sm text-gray-600">Income Tahunan (Gross)</span>
+                                <span id="annualIncome" class="font-semibold text-green-600">-</span>
+                            </div>
+
+                            <div class="flex justify-between items-center">
+                                <span class="text-sm text-gray-600">Biaya Operasional</span>
+                                <span id="totalExpenses" class="font-semibold text-red-600">-</span>
+                            </div>
+
+                            <div class="flex justify-between items-center border-t pt-3">
+                                <span class="text-sm font-semibold text-gray-800">Net Cashflow/Tahun</span>
+                                <span id="netCashflow" class="text-lg font-bold text-bz-blue">-</span>
+                            </div>
+                        </div>
+
+                        <!-- Rental Yield Info -->
+                        <div class="mt-4 p-3 bg-gray-50 rounded text-xs text-gray-600">
+                            <div class="flex justify-between mb-1">
+                                <span>Rental Yield:</span>
+                                <span id="rentalYieldUsed" class="font-semibold">-</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span>Occupancy Rate:</span>
+                                <span id="occupancyRate" class="font-semibold">-</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Grafik Proyeksi -->
+                    <div class="bg-white rounded-lg shadow-md p-6">
+                        <h3 class="text-lg font-bold text-bz-blue mb-4">Proyeksi 10 Tahun</h3>
+                        <canvas id="projectionChart"></canvas>
+                    </div>
+
+                    <!-- CTA Konsultasi -->
+                    <div class="bg-gradient-to-r from-bz-blue to-blue-700 text-white rounded-lg shadow-lg p-6 mt-6">
+                        <h3 class="text-lg font-bold mb-2">💡 Tertarik Investasi?</h3>
+                        <p class="text-sm mb-4 opacity-90">
+                            Konsultasi gratis dengan expert kami untuk mendapatkan rekomendasi properti terbaik sesuai budget dan goals Anda.
+                        </p>
+                        <a href="https://balizero.com/contact"
+                           target="_blank"
+                           class="inline-block w-full text-center bg-bz-gold hover:bg-yellow-600 text-white font-semibold py-3 rounded-lg transition-all shadow-md hover:shadow-xl">
+                            📞 Hubungi Kami Sekarang
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Placeholder sebelum kalkulasi -->
+                <div id="placeholder" class="bg-white rounded-lg shadow-md p-8 text-center">
+                    <div class="text-6xl mb-4">📈</div>
+                    <h3 class="text-lg font-semibold text-gray-700 mb-2">Siap Menghitung ROI?</h3>
+                    <p class="text-sm text-gray-600">
+                        Isi form di sebelah kiri dengan data properti Anda, lalu klik tombol "Hitung ROI" untuk melihat hasil perhitungan detail.
+                    </p>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Info Tambahan -->
+        <div class="mt-12 bg-white rounded-lg shadow-md p-6">
+            <h2 class="text-xl font-bold text-bz-blue mb-4">📖 Panduan Rental Yield di Bali</h2>
+
+            <div class="grid md:grid-cols-2 gap-6">
+                <div>
+                    <h3 class="font-semibold text-gray-800 mb-2">🏖️ Short-Term Rental (Villa Harian)</h3>
+                    <ul class="text-sm text-gray-600 space-y-1">
+                        <li>✅ ROI lebih tinggi (10-15% rata-rata)</li>
+                        <li>✅ Fleksibilitas penggunaan pribadi</li>
+                        <li>❌ Management lebih intensif</li>
+                        <li>❌ Biaya operasional lebih tinggi</li>
+                        <li>💡 Cocok untuk: Area tourist seperti Canggu, Seminyak, Uluwatu</li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="font-semibold text-gray-800 mb-2">🏡 Long-Term Rental (Bulanan/Tahunan)</h3>
+                    <ul class="text-sm text-gray-600 space-y-1">
+                        <li>✅ Income stabil & predictable</li>
+                        <li>✅ Management lebih mudah</li>
+                        <li>❌ ROI lebih rendah (6-10% rata-rata)</li>
+                        <li>❌ Kurang fleksibel</li>
+                        <li>💡 Cocok untuk: Area residential seperti Sanur, Ubud</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="mt-6 p-4 bg-yellow-50 border-l-4 border-bz-gold rounded-r">
+                <p class="text-sm text-gray-700">
+                    <strong>💡 Pro Tip:</strong> Banyak investor menggunakan strategi hybrid - short-term di high season (Juli-Sept) dan long-term di low season untuk maksimalkan ROI.
+                </p>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-bz-blue text-white py-6 mt-12">
+        <div class="container mx-auto px-4 text-center">
+            <p class="text-sm opacity-90">
+                © 2024 BaliZero Property Lab - Tools untuk Smart Property Investors
+            </p>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // Load area data
+        let areasData = [];
+
+        async function loadAreas() {
+            try {
+                const response = await fetch('../data/areas.json');
+                areasData = await response.json();
+
+                const select = document.getElementById('areaSelect');
+                areasData.forEach(area => {
+                    const option = document.createElement('option');
+                    option.value = area.id;
+                    option.textContent = area.name;
+                    option.dataset.rentalYield = area.rentalYield;
+                    select.appendChild(option);
+                });
+            } catch (error) {
+                console.error('Error loading areas:', error);
+            }
+        }
+
+        // Update area info ketika area dipilih
+        document.getElementById('areaSelect').addEventListener('change', function() {
+            const selectedArea = areasData.find(a => a.id === this.value);
+            const infoEl = document.getElementById('areaInfo');
+
+            if (selectedArea) {
+                const rentalType = document.querySelector('input[name="rentalType"]:checked').value;
+                const yieldRange = selectedArea.rentalYield[rentalType];
+                infoEl.textContent = `💰 Rental Yield: ${yieldRange} | 📍 ${selectedArea.description}`;
+            } else {
+                infoEl.textContent = '';
+            }
+        });
+
+        // Update area info ketika rental type berubah
+        document.querySelectorAll('input[name="rentalType"]').forEach(radio => {
+            radio.addEventListener('change', function() {
+                const areaSelect = document.getElementById('areaSelect');
+                if (areaSelect.value) {
+                    // Trigger change event untuk update info
+                    areaSelect.dispatchEvent(new Event('change'));
+                }
+            });
+        });
+
+        // Chart instance global
+        let projectionChart = null;
+
+        // Handle form submission
+        document.getElementById('roiForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            calculateROI();
+        });
+
+        function calculateROI() {
+            // Ambil input values
+            const propertyPrice = parseFloat(document.getElementById('propertyPrice').value) || 0;
+            const areaId = document.getElementById('areaSelect').value;
+            const rentalType = document.querySelector('input[name="rentalType"]:checked').value;
+            const renovation = parseFloat(document.getElementById('renovation').value) || 0;
+            const legalFees = parseFloat(document.getElementById('legalFees').value) || 0;
+            const managementFee = parseFloat(document.getElementById('managementFee').value) || 20;
+            const maintenance = parseFloat(document.getElementById('maintenance').value) || 0;
+            const propertyTax = parseFloat(document.getElementById('propertyTax').value) || 0;
+
+            // Validasi
+            if (!areaId) {
+                alert('Pilih area lokasi properti!');
+                return;
+            }
+
+            // Cari data area
+            const selectedArea = areasData.find(a => a.id === areaId);
+            if (!selectedArea) return;
+
+            // Parse rental yield (ambil nilai tengah dari range)
+            const yieldRange = selectedArea.rentalYield[rentalType];
+            const yieldMatch = yieldRange.match(/(\d+)-(\d+)%/);
+            const minYield = parseFloat(yieldMatch[1]) / 100;
+            const maxYield = parseFloat(yieldMatch[2]) / 100;
+            const avgYield = (minYield + maxYield) / 2;
+
+            // Occupancy rate berdasarkan rental type
+            const occupancyRate = rentalType === 'short-term' ? 0.70 : 0.90; // 70% untuk short-term, 90% untuk long-term
+
+            // Kalkulasi
+            const totalInvestment = propertyPrice + renovation + legalFees;
+            const grossAnnualIncome = propertyPrice * avgYield * occupancyRate;
+            const managementCost = grossAnnualIncome * (managementFee / 100);
+            const totalAnnualExpenses = managementCost + maintenance + propertyTax;
+            const netCashflow = grossAnnualIncome - totalAnnualExpenses;
+            const roi = (netCashflow / totalInvestment) * 100;
+            const breakEvenYears = totalInvestment / netCashflow;
+
+            // Update UI
+            document.getElementById('roiPercent').textContent = roi.toFixed(1) + '%';
+            document.getElementById('breakEven').textContent = breakEvenYears.toFixed(1) + ' tahun';
+            document.getElementById('totalInvestment').textContent = '$' + totalInvestment.toLocaleString('en-US');
+            document.getElementById('annualIncome').textContent = '$' + grossAnnualIncome.toLocaleString('en-US');
+            document.getElementById('totalExpenses').textContent = '$' + totalAnnualExpenses.toLocaleString('en-US');
+            document.getElementById('netCashflow').textContent = '$' + netCashflow.toLocaleString('en-US');
+            document.getElementById('rentalYieldUsed').textContent = yieldRange;
+            document.getElementById('occupancyRate').textContent = (occupancyRate * 100) + '%';
+
+            // Show results
+            document.getElementById('placeholder').classList.add('hidden');
+            document.getElementById('resultsSection').classList.remove('hidden');
+            document.getElementById('resultsSection').classList.add('fade-in');
+
+            // Generate chart
+            generateProjectionChart(totalInvestment, netCashflow, roi);
+
+            // Scroll ke hasil
+            document.getElementById('resultsSection').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+
+        function generateProjectionChart(initialInvestment, annualCashflow, roi) {
+            const ctx = document.getElementById('projectionChart').getContext('2d');
+
+            // Generate data untuk 10 tahun
+            const years = [];
+            const cumulativeCashflow = [];
+            const investmentLine = [];
+
+            for (let i = 0; i <= 10; i++) {
+                years.push(i === 0 ? 'Awal' : 'Tahun ' + i);
+
+                if (i === 0) {
+                    cumulativeCashflow.push(-initialInvestment);
+                    investmentLine.push(-initialInvestment);
+                } else {
+                    // Cumulative cashflow dengan asumsi pertumbuhan 2% per tahun
+                    const growthFactor = Math.pow(1.02, i - 1);
+                    const yearCashflow = annualCashflow * growthFactor;
+                    cumulativeCashflow.push(cumulativeCashflow[i-1] + yearCashflow);
+                    investmentLine.push(-initialInvestment);
+                }
+            }
+
+            // Destroy existing chart jika ada
+            if (projectionChart) {
+                projectionChart.destroy();
+            }
+
+            // Create new chart
+            projectionChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: years,
+                    datasets: [
+                        {
+                            label: 'Cumulative Cashflow',
+                            data: cumulativeCashflow,
+                            borderColor: '#c9a961',
+                            backgroundColor: 'rgba(201, 169, 97, 0.1)',
+                            borderWidth: 3,
+                            fill: true,
+                            tension: 0.4
+                        },
+                        {
+                            label: 'Investasi Awal',
+                            data: investmentLine,
+                            borderColor: '#ef4444',
+                            borderWidth: 2,
+                            borderDash: [5, 5],
+                            fill: false,
+                            pointRadius: 0
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: true,
+                    plugins: {
+                        legend: {
+                            display: true,
+                            position: 'top',
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    let label = context.dataset.label || '';
+                                    if (label) {
+                                        label += ': ';
+                                    }
+                                    label += '$' + context.parsed.y.toLocaleString('en-US');
+                                    return label;
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            ticks: {
+                                callback: function(value) {
+                                    return '$' + (value / 1000).toFixed(0) + 'k';
+                                }
+                            },
+                            grid: {
+                                color: 'rgba(0, 0, 0, 0.05)'
+                            }
+                        },
+                        x: {
+                            grid: {
+                                display: false
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Load areas on page load
+        loadAreas();
+    </script>
+
+</body>
+</html>
